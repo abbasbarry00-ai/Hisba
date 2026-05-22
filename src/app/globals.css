@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+@theme {
+  --color-accent-day: #22c55e; /* Vibrant Green */
+  --color-bg-creamy: #F9F9F7;
+  --color-fg-deep: #000000;
+}
+
+@layer base {
+  :root {
+    --background: var(--color-bg-creamy);
+    --foreground: var(--color-fg-deep);
+    --accent: var(--color-accent-day);
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; 
+}
+
+/* Fix for number input scroll bug across all browsers */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* Premium Minimalist Card */
+.gumroad-card {
+  border: 4px solid var(--foreground);
+  border-radius: 1.5rem;
+  background-color: var(--background);
+  box-shadow: 8px 8px 0px 0px var(--foreground);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Premium Minimalist Button */
+.gumroad-button {
+  border: 4px solid var(--foreground);
+  border-radius: 1.5rem;
+  background-color: var(--foreground);
+  color: var(--background);
+  font-weight: 900;
+  text-transform: uppercase;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  box-shadow: 6px 6px 0px 0px rgba(0,0,0,0.5);
+  cursor: pointer;
+}
+
+.gumroad-button:active {
+  transform: translate(6px, 6px);
+  box-shadow: 0px 0px 0px 0px transparent;
+}
+
+/* Vibrant Green Button */
+.gumroad-button-green {
+  border: 4px solid var(--foreground);
+  border-radius: 1.5rem;
+  background-color: var(--accent);
+  color: var(--foreground);
+  font-weight: 900;
+  text-transform: uppercase;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  box-shadow: 6px 6px 0px 0px rgba(0,0,0,0.5);
+  cursor: pointer;
+}
+
+.gumroad-button-green:active {
+  transform: translate(6px, 6px);
+  box-shadow: 0px 0px 0px 0px transparent;
+}
