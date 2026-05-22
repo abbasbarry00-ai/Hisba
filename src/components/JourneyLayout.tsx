@@ -7,7 +7,7 @@ import ExpenseInput from "./ExpenseInput";
 import DoodleArrow from "./DoodleArrow";
 import RecentEntries from "./RecentEntries";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpLeft } from "lucide-react";
+import { ArrowUpLeft, Plus } from "lucide-react";
 
 export interface ExpenseEntry {
   id: string;
@@ -87,25 +87,25 @@ export default function JourneyLayout() {
   };
 
   return (
-    <div className="relative min-h-[100vh] w-full overflow-x-hidden flex flex-col items-center pb-48">
+    <div className="relative min-h-[100vh] w-full overflow-x-hidden flex flex-col items-center pb-48 font-sans">
       
       {/* GUMROAD STYLE NAVBAR */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background border-b-4 border-foreground flex items-center justify-between px-6 py-4">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b-[3px] border-foreground flex items-center justify-between px-8 py-5 shadow-sm">
         {/* Right Side (RTL Start) - Logo */}
         <div className="flex items-center gap-2 cursor-pointer">
           <span className="text-3xl font-black text-accent tracking-tighter">حِسبة</span>
-          <span className="text-xl font-bold opacity-60 ml-2 tracking-wide">| Hisba</span>
+          <span className="text-xl font-bold text-accent ml-2">| Hisba</span>
         </div>
         
         {/* Left Side (RTL End) - Actions */}
-        <div className="flex items-center gap-6">
-          <a href="#" className="hidden md:block font-medium hover:underline opacity-80">المميزات</a>
-          <a href="#" className="hidden md:block font-medium hover:underline opacity-80">عن الأداة</a>
-          <button className="font-semibold hover:underline ml-2">تسجيل الدخول</button>
+        <div className="flex items-center gap-8">
+          <a href="#" className="hidden md:block font-bold hover:underline">المميزات</a>
+          <a href="#" className="hidden md:block font-bold hover:underline">عن الأداة</a>
+          <a href="#" className="font-bold hover:underline">تسجيل الدخول</a>
           {!isSetupComplete && (
             <button 
               onClick={scrollToSetup}
-              className="gumroad-button px-6 py-3 text-sm md:text-base hidden sm:block"
+              className="gumroad-button-green px-8 py-3 text-sm md:text-base hidden sm:block"
             >
               ابدأ الحساب
             </button>
@@ -125,23 +125,35 @@ export default function JourneyLayout() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0, y: -20 }}
-              className="w-full flex flex-col items-center pointer-events-auto"
+              className="w-full flex flex-col items-center pointer-events-auto mt-10"
             >
+              {/* Back Button (Mockup Style) */}
+              <div className="w-full max-w-2xl flex justify-start mb-6">
+                 <button className="flex items-center justify-center gap-2 bg-white border-[3px] border-black rounded-full px-6 py-2 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] hover:translate-x-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">
+                  <ArrowUpLeft size={20} strokeWidth={3} className="rotate-45" />
+                  رجوع
+                </button>
+              </div>
+
               {/* HERO SECTION */}
-              <div className="text-center mt-12 mb-20 md:mb-32 w-full px-4">
-                <h1 className="text-5xl md:text-7xl leading-tight font-black mb-8 text-foreground tracking-tight mx-auto max-w-4xl">
+              <div className="text-center mb-20 w-full px-4 relative">
+                <h1 className="text-7xl md:text-8xl leading-[1.1] font-black mb-8 mx-auto max-w-4xl sticker-text tracking-tight">
                   اربط دينارك<br/>بعمرك
                 </h1>
-                <p className="text-lg md:text-xl font-medium opacity-70 max-w-2xl mx-auto leading-relaxed">
+                
+                <p className="text-xl md:text-2xl font-black max-w-3xl mx-auto leading-relaxed text-foreground text-outline-white mt-8">
                   حِسبة هي أداة وعي مالي تحسب لك تكلفة مشترياتك بالساعات والدقائق التي قضيتها من عمرك في العمل لتجني هذا المال.
                 </p>
-                <div className="mt-12">
-                  <button 
-                    onClick={scrollToSetup}
-                    className="gumroad-button-green px-10 py-5 text-xl sm:hidden"
-                  >
-                    ابدأ الحساب
-                  </button>
+
+                {/* Mockup Line CTA */}
+                <div className="relative w-full max-w-2xl mx-auto mt-20">
+                  <div className="absolute top-1/2 left-0 right-0 h-[6px] bg-accent -translate-y-1/2 rounded-full"></div>
+                  <div className="relative flex justify-center">
+                    <button onClick={scrollToSetup} className="w-16 h-16 bg-accent border-[4px] border-black rounded-full flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] hover:translate-x-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">
+                      <Plus size={32} strokeWidth={4} className="text-black" />
+                    </button>
+                  </div>
+                  <p className="text-center font-black text-2xl mt-4 text-foreground text-outline-white">أضف مصروف</p>
                 </div>
               </div>
 
@@ -202,51 +214,61 @@ export default function JourneyLayout() {
               key="dashboard"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="w-full max-w-lg flex flex-col items-center mt-8 pointer-events-auto"
+              className="w-full flex flex-col items-center mt-10 pointer-events-auto"
             >
-              {/* Hourly Rate Setup Result */}
-              <div className="w-full text-center mb-16 relative">
-                <button 
-                  onClick={resetApp}
-                  className="absolute -top-12 -left-2 flex items-center justify-center gap-2 gumroad-button-green px-4 py-2 text-sm z-20"
-                >
-                  <ArrowUpLeft size={18} strokeWidth={3} />
+              
+              {/* Back Button (Mockup Style) */}
+              <div className="w-full max-w-2xl flex justify-start mb-6">
+                 <button onClick={resetApp} className="flex items-center justify-center gap-2 bg-white border-[3px] border-black rounded-full px-6 py-2 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] hover:translate-x-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">
+                  <ArrowUpLeft size={20} strokeWidth={3} className="rotate-45" />
                   رجوع
                 </button>
+              </div>
 
-                <div className="gumroad-card w-full p-8 relative bg-white">
-                  <h2 className="text-2xl font-bold mb-4 opacity-90 text-foreground">قيمة ساعة عملك</h2>
-                  <div className="text-6xl md:text-7xl font-black text-accent">
-                    {Math.round(hourlyWage).toLocaleString()} <span className="text-3xl text-accent">د.ع</span>
+              {/* HERO SECTION ON DASHBOARD (Matching Mockup) */}
+              <div className="text-center mb-16 w-full px-4 relative">
+                <h1 className="text-7xl md:text-8xl leading-[1.1] font-black mb-8 mx-auto max-w-4xl sticker-text tracking-tight">
+                  اربط دينارك<br/>بعمرك
+                </h1>
+                
+                <p className="text-xl md:text-2xl font-black max-w-3xl mx-auto leading-relaxed text-foreground text-outline-white mt-8">
+                  حِسبة هي أداة وعي مالي تحسب لك تكلفة مشترياتك بالساعات والدقائق التي قضيتها من عمرك في العمل لتجني هذا المال.
+                </p>
+              </div>
+
+              <div className="w-full max-w-lg flex flex-col items-center mt-8">
+                {/* Hourly Rate Setup Result */}
+                <div className="w-full text-center mb-16 relative">
+                  <div className="gumroad-card w-full p-8 relative bg-white shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]">
+                    <h2 className="text-2xl font-bold mb-4 opacity-90 text-foreground">قيمة ساعة عملك</h2>
+                    <div className="text-6xl md:text-7xl font-black text-accent">
+                      {Math.round(hourlyWage).toLocaleString()} <span className="text-3xl text-accent">د.ع</span>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <DoodleArrow className="mb-12 rotate-180 scale-x-[-1] text-accent" />
-
-              {/* Total Time Cost Visualization */}
-              <div className="w-full text-center mb-16">
-                <h2 className="text-xl font-bold mb-6 opacity-90 text-foreground">التكلفة الفعلية لمصروفاتك</h2>
-                
-                <div className="gumroad-card p-10 flex justify-center items-center inline-block bg-white">
-                  <TimeCostClock hours={hours} minutes={minutes} />
+                {/* Total Time Cost Visualization */}
+                <div className="w-full text-center mb-16">
+                  <h2 className="text-xl font-bold mb-6 opacity-90 text-foreground text-outline-white">التكلفة الفعلية لمصروفاتك</h2>
+                  
+                  <div className="gumroad-card p-10 flex justify-center items-center inline-block bg-white shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]">
+                    <TimeCostClock hours={hours} minutes={minutes} />
+                  </div>
+                  
+                  <div className="mt-8 text-3xl md:text-4xl font-black text-foreground text-outline-white">
+                    إجمالي المصروفات: <span className="text-accent">{totalExpenses.toLocaleString()}</span> <span className="text-xl text-accent">د.ع</span>
+                  </div>
                 </div>
-                
-                <div className="mt-8 text-3xl md:text-4xl font-black text-foreground">
-                  إجمالي المصروفات: <span className="text-accent">{totalExpenses.toLocaleString()}</span> <span className="text-xl text-accent">د.ع</span>
+
+                {/* Recent Entries */}
+                <div className="w-full mb-12">
+                   <h3 className="font-black text-3xl mb-8 text-center text-foreground text-outline-white">المصروفات الأخيرة</h3>
+                   <RecentEntries entries={expenses} hourlyWage={hourlyWage} />
                 </div>
+
+                {/* Floating Action Button for Logging */}
+                <ExpenseInput onAddExpense={handleAddExpense} />
               </div>
-
-              <DoodleArrow className="mb-12 rotate-180 scale-x-[-1] text-accent" />
-
-              {/* Recent Entries */}
-              <div className="w-full mb-12">
-                 <h3 className="font-black text-3xl mb-8 text-center text-foreground">المصروفات الأخيرة</h3>
-                 <RecentEntries entries={expenses} hourlyWage={hourlyWage} />
-              </div>
-
-              {/* Floating Action Button for Logging */}
-              <ExpenseInput onAddExpense={handleAddExpense} />
 
             </motion.div>
           )}
